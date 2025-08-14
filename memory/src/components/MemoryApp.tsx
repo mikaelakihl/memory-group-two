@@ -22,25 +22,33 @@ export const MemoryApp = () => {
         {id: 16, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
     ]);
     
-    const colorByPairId: {[key: number]: string} = {
-        1: "#FF0000", 
-        2: "#FF1493", 
-        3: "#9932CC", 
-        4: "#00BFFF", 
-        5: "#228B22", 
-        6: "#FFFF00", 
-        7: "#FFA500", 
-        8: "#40E0D0", 
+    // const colorByPairId: {[key: number]: string} = {
+    //     1: "#FF0000", 
+    //     2: "#FF1493", 
+    //     3: "#9932CC", 
+    //     4: "#00BFFF", 
+    //     5: "#228B22", 
+    //     6: "#FFFF00", 
+    //     7: "#FFA500", 
+    //     8: "#40E0D0", 
+    // };
+    const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+        1: { hexcode: "#FF0000", name: "Röd" },
+        2: { hexcode: "#FF1493", name: "Rosa" },
+        3: { hexcode: "#9932CC", name: "Lila" },
+        4: { hexcode: "#00BFFF", name: "Blå" },
+        5: { hexcode: "#228B22", name: "Grön" },
+        6: { hexcode: "#FFFF00", name: "Gul" },
+        7: { hexcode: "#FFA500", name: "Orange" },
+        8: { hexcode: "#40E0D0", name: "Turkos" },
     };
 
-    const [flipped, setFlipped] = useState([]); 
-    const [matched, setMatched] = useState([]); 
 
     const handleFlip = (id: number) => {
         setCards(currentCards =>
             currentCards.map(card =>
                 card.id === id
-                    ? { ...card, isFlipped: !card.isFlipped, bgColor: !card.isFlipped ? colorByPairId[card.pairId] : "white",}
+                    ? { ...card, isFlipped: !card.isFlipped, bgColor: !card.isFlipped ? colorByPairId[card.pairId].hexcode : "white",}
                     : card
             )
         )
@@ -55,13 +63,7 @@ export const MemoryApp = () => {
                     className={`card ${c.isMatched ? "matched" : ""}`}
                     onClick={() => handleFlip(c.id)}
                     style={{backgroundColor: c.isFlipped ? c.bgColor : "white",}}
-                    aria-label={`Kort ${c.id}`}
-                    // style={{
-                    //     backgroundColor: c.isFlipped ? c.bgColor : "white",
-                    //     width: "80px",
-                    //     height: "80px",
-                    //     margin: "5px"
-                    // }}
+                    aria-label={c.isFlipped ? colorByPairId[c.pairId].name : `Kort ${c.id}`}
                 >
                     {/* Ta bort/Kommentera ut nedanstående rad för att ta bort texten på korten:  */}
                     {c.isFlipped ? "": `Kort ${c.id}`} 
