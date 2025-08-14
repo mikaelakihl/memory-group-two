@@ -1,0 +1,12 @@
+.gameBoard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100vh;
+  gap: 8px;
+  margin: 16px auto;
+}
+
+.card { /* Gör responsivt i förhållande till gameBoard!  */
+    width: 100px; 
+    height: 100px; 
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ICard } from "../models/ICard";
+import "./MemoryApp.css";
 
 export const MemoryApp = () => {
     const [cards, setCards] = useState<ICard[]>([
@@ -47,17 +48,20 @@ export const MemoryApp = () => {
 
     return (
         <>
-         <div>
+         <div className="gameBoard">
             {cards.map((c) => (
                 <button
                     key={c.id}
+                    className={`card ${c.isMatched ? "matched" : ""}`}
                     onClick={() => handleFlip(c.id)}
-                    style={{
-                        backgroundColor: c.isFlipped ? c.bgColor : "white",
-                        width: "80px",
-                        height: "80px",
-                        margin: "5px"
-                    }}
+                    style={{backgroundColor: c.isFlipped ? c.bgColor : "white",}}
+                    aria-label={`Kort ${c.id}`}
+                    // style={{
+                    //     backgroundColor: c.isFlipped ? c.bgColor : "white",
+                    //     width: "80px",
+                    //     height: "80px",
+                    //     margin: "5px"
+                    // }}
                 >
                     {/* Ta bort/Kommentera ut nedanstående rad för att ta bort texten på korten:  */}
                     {c.isFlipped ? "": `Kort ${c.id}`} 
