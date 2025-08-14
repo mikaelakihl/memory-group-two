@@ -23,15 +23,36 @@ export const MemoryApp = () => {
 
     const [flipped, setFlipped] = useState([]); 
     const [matched, setMatched] = useState([]); 
-    
+
+    const handleFlip = (id: number) => {
+        setCards(currentCards =>
+            currentCards.map(card =>
+                card.id === id
+                    ? { ...card, isFlipped: !card.isFlipped }
+                    : card
+            )
+        )
+    }
+
     return (
         <>
-        <div> {cards.map((c) => (
-        <button key={c.id}>
-            {`Kort ${c.id}`}
-        </button>
-      ))}
-    </div>
+         <div>
+            {cards.map((c) => (
+                <button
+                    key={c.id}
+                    onClick={() => handleFlip(c.id)}
+                    style={{
+                        backgroundColor: c.isFlipped ? c.bgColor : "gray",
+                        width: "80px",
+                        height: "80px",
+                        margin: "5px"
+                    }}
+                >
+                    {c.isFlipped ? "": `Kort ${c.id}`}
+                </button>
+            ))}
+        </div>
         </>
     )
+    
 }
