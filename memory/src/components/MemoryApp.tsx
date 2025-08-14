@@ -25,6 +25,13 @@ export const MemoryApp = () => {
     const [matched, setMatched] = useState([]); 
     
     return (
-        <></>
+        <>
+        <div> {cards.map((c) => (
+        <button key={c.id}>
+            {`Kort ${c.id}`}
+        </button>
+      ))}
+    </div>
+        </>
     )
 }
