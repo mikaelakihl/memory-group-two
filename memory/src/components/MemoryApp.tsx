@@ -20,6 +20,17 @@ export const MemoryApp = () => {
         {id: 15, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
         {id: 16, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
     ]);
+    
+    const colorByPairId: {[key: number]: string} = {
+        1: "#FF0000", 
+        2: "#FF1493", 
+        3: "#9932CC", 
+        4: "#00BFFF", 
+        5: "#228B22", 
+        6: "#FFFF00", 
+        7: "#FFA500", 
+        8: "#40E0D0", 
+    };
 
     const [flipped, setFlipped] = useState([]); 
     const [matched, setMatched] = useState([]); 
@@ -28,7 +39,7 @@ export const MemoryApp = () => {
         setCards(currentCards =>
             currentCards.map(card =>
                 card.id === id
-                    ? { ...card, isFlipped: !card.isFlipped }
+                    ? { ...card, isFlipped: !card.isFlipped, bgColor: !card.isFlipped ? colorByPairId[card.pairId] : "white",}
                     : card
             )
         )
@@ -42,13 +53,14 @@ export const MemoryApp = () => {
                     key={c.id}
                     onClick={() => handleFlip(c.id)}
                     style={{
-                        backgroundColor: c.isFlipped ? c.bgColor : "gray",
+                        backgroundColor: c.isFlipped ? c.bgColor : "white",
                         width: "80px",
                         height: "80px",
                         margin: "5px"
                     }}
                 >
-                    {c.isFlipped ? "": `Kort ${c.id}`}
+                    {/* Ta bort/Kommentera ut nedanstående rad för att ta bort texten på korten:  */}
+                    {c.isFlipped ? "": `Kort ${c.id}`} 
                 </button>
             ))}
         </div>
