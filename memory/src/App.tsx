@@ -1,13 +1,12 @@
-import './App.css'
-import { MemoryApp } from './components/MemoryApp'
+import './App.css';
+import { GameBoard } from './components/GameBoard';
 
 function App() {
-  
   return (
-  <>
-  <MemoryApp />
-  </>
-  )
+    <>
+      <GameBoard />
+    </>
+  );
 }
 
-export default App
+export default App;
