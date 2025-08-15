@@ -123,17 +123,16 @@ export const GameBoard = () => {
 	);
 
 	// export const [matchingPair, setMatchingPair] = useState(false);
-
-	const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
-		1: { hexcode: "#FF0000", name: "Röd" },
-		2: { hexcode: "#FF1493", name: "Rosa" },
-		3: { hexcode: "#9932CC", name: "Lila" },
-		4: { hexcode: "#00BFFF", name: "Blå" },
-		5: { hexcode: "#228B22", name: "Grön" },
-		6: { hexcode: "#FFFF00", name: "Gul" },
-		7: { hexcode: "#FFA500", name: "Orange" },
-		8: { hexcode: "#40E0D0", name: "Turkos" },
-	};
+  const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+    1: { hexcode: '#FF0000', name: 'Röd' },
+    2: { hexcode: '#FF1493', name: 'Rosa' },
+    3: { hexcode: '#9932CC', name: 'Lila' },
+    4: { hexcode: '#00BFFF', name: 'Blå' },
+    5: { hexcode: '#228B22', name: 'Grön' },
+    6: { hexcode: '#FFFF00', name: 'Gul' },
+    7: { hexcode: '#FFA500', name: 'Orange' },
+    8: { hexcode: '#555555', name: 'Mörkgrå' },
+  };
 
 	// GAME OVER
 	const [gameOver, setGameOver] = useState(false);
