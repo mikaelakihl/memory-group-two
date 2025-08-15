@@ -1,5 +1,6 @@
 #root {
   display: flex;
+  flex-direction: column;
   justify-content: center;  
   align-items: center;      
   min-height: 100vh;        
@@ -9,6 +10,7 @@
 body {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .gameBoard {
@@ -17,7 +19,6 @@ body {
   width: 70vw;
   gap: 10px;
   margin: 16px auto;
- 
 }
 
 .card { /*Responsivt i förhållande till gameboards storlek*/

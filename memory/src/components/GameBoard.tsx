@@ -1,81 +1,98 @@
-import { useState } from 'react';
-import type { ICard } from '../models/ICard';
-import './GameBoard.css';
-import { Card } from './Card';
+import { useState } from "react";
+import type { ICard } from "../models/ICard";
+import "./GameBoard.css";
+import { Card } from "./Card";
 
 export const GameBoard = () => {
-  const [cards, setCards] = useState<ICard[]>([
-    { id: 1, pairId: 1, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 2, pairId: 1, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 3, pairId: 2, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 4, pairId: 2, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 5, pairId: 3, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 6, pairId: 3, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 7, pairId: 4, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 8, pairId: 4, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 9, pairId: 5, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 10, pairId: 5, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 11, pairId: 6, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 12, pairId: 6, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 13, pairId: 7, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 14, pairId: 7, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 15, pairId: 8, bgColor: 'white', isFlipped: false, isMatched: false },
-    { id: 16, pairId: 8, bgColor: 'white', isFlipped: false, isMatched: false },
-  ]);
+	const [cards, setCards] = useState<ICard[]>([
+		{ id: 1, pairId: 1, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 2, pairId: 1, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 3, pairId: 2, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 4, pairId: 2, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 5, pairId: 3, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 6, pairId: 3, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 7, pairId: 4, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 8, pairId: 4, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 9, pairId: 5, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 10, pairId: 5, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 11, pairId: 6, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 12, pairId: 6, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 13, pairId: 7, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 14, pairId: 7, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 15, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false },
+		{ id: 16, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false },
+	]);
 
-  // export const [matchingPair, setMatchingPair] = useState(false);
+	// export const [matchingPair, setMatchingPair] = useState(false);
 
-  const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
-    1: { hexcode: '#FF0000', name: 'Röd' },
-    2: { hexcode: '#FF1493', name: 'Rosa' },
-    3: { hexcode: '#9932CC', name: 'Lila' },
-    4: { hexcode: '#00BFFF', name: 'Blå' },
-    5: { hexcode: '#228B22', name: 'Grön' },
-    6: { hexcode: '#FFFF00', name: 'Gul' },
-    7: { hexcode: '#FFA500', name: 'Orange' },
-    8: { hexcode: '#40E0D0', name: 'Turkos' },
-  };
+	const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+		1: { hexcode: "#FF0000", name: "Röd" },
+		2: { hexcode: "#FF1493", name: "Rosa" },
+		3: { hexcode: "#9932CC", name: "Lila" },
+		4: { hexcode: "#00BFFF", name: "Blå" },
+		5: { hexcode: "#228B22", name: "Grön" },
+		6: { hexcode: "#FFFF00", name: "Gul" },
+		7: { hexcode: "#FFA500", name: "Orange" },
+		8: { hexcode: "#40E0D0", name: "Turkos" },
+	};
 
-  const handleFlip = (id: number) => {
-    // const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
-    // if (flipCard.length >= 2) return; // blockera fler än 2
-    setCards((currentCards) =>
-      currentCards.map((card) =>
-        card.id === id
-          ? {
-              ...card,
-              isFlipped: !card.isFlipped,
-              bgColor: !card.isFlipped
-                ? colorByPairId[card.pairId].hexcode
-                : 'white',
-            }
-          : card
-      )
-    );
-  };
+	const handleFlip = (id: number) => {
+		// const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
+		// if (flipCard.length >= 2) return; // blockera fler än 2
+		setCards((currentCards) =>
+			currentCards.map((card) =>
+				card.id === id
+					? {
+							...card,
+							isFlipped: !card.isFlipped,
+							bgColor: !card.isFlipped ? colorByPairId[card.pairId].hexcode : "white",
+					  }
+					: card
+			)
+		);
+	};
 
-  // Lägg in i handleFlip ? Om lägger variabel inuti handleFlip lokal variabel?
-  // const match = () => {
-  //     if({c.pairId === c.pairId}) {
-  //         setMatchingPair(c.isMatched(true)); //Om den är true - matchingPair =true
-  //     }
-  // }
-  // OBS if isMatched && TVÅ cards isFlipped "lås" & kolla om matchedPair.
-  // Annars return. if isMatched ??? Försvinna? Låsa(stäng av funktion för att kunna flippa)?
-  //
+	// GAME OVER
+	const [gameOver, setGameOver] = useState(false);
 
-  return (
-    <>
-      <div className="gameBoard">
-        {cards.map((c) => (
-          <Card
-            key={c.id}
-            card={c}
-            colorName={colorByPairId[c.pairId].name}
-            onFlip={handleFlip}
-          />
-        ))}
-      </div>
-    </>
-  );
+	const checkGameOver = () => {
+		const allMatched = cards.every((card) => card.isMatched); // Kolla om alla kort är matchade
+		if (allMatched) {
+			setGameOver(true); // Om alla kort är matchade, sätt gameOver till true
+		}
+		console.log(gameOver);
+	};
+
+	// RESTART GAME
+	const restartGame = () => {
+		// Shuffle funktion här
+		// Set all cards too isFlipped: false, isMatched: false
+		console.log("New game");
+	};
+
+	// Lägg in i handleFlip ? Om lägger variabel inuti handleFlip lokal variabel?
+	// const match = () => {
+	//     if({c.pairId === c.pairId}) {
+	//         setMatchingPair(c.isMatched(true)); //Om den är true - matchingPair =true
+	//     }
+	// }
+	// OBS if isMatched && TVÅ cards isFlipped "lås" & kolla om matchedPair.
+	// Annars return. if isMatched ??? Försvinna? Låsa(stäng av funktion för att kunna flippa)?
+
+	return (
+		<>
+			<div className="gameBoard">
+				{cards.map((c) => (
+					<Card
+						key={c.id}
+						card={c}
+						colorName={colorByPairId[c.pairId].name}
+						onFlip={handleFlip}
+					/>
+				))}
+			</div>
+			{!gameOver && <button onClick={checkGameOver}>Är spelet slut?</button>}
+			{gameOver && <button onClick={restartGame}>Spelet är över! Spela igen!</button>}
+		</>
+	);
 };
