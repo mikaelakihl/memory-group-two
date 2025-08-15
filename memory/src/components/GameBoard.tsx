@@ -118,6 +118,21 @@ const memoryCards: ICard[] = shuffleArray([
     isMatched: false,
   },
 ]);
+
+  const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+    1: { hexcode: '#FF0000', name: 'Röd' },
+    2: { hexcode: '#FF1493', name: 'Rosa' },
+    3: { hexcode: '#9932CC', name: 'Lila' },
+    4: { hexcode: '#00BFFF', name: 'Blå' },
+    5: { hexcode: '#228B22', name: 'Grön' },
+    6: { hexcode: '#FFFF00', name: 'Gul' },
+    7: { hexcode: '#FFA500', name: 'Orange' },
+    8: { hexcode: '#555555', name: 'Mörkgrå' },
+  };
+  
+export const GameBoard = () => {
+  const [cards, setCards] = useState<ICard[]>(shuffleArray(memoryCards));
+
   const [timeElapsed, setTimeElapsed] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const [isTimeRunning, setIsTimeRunning] = useState(false);
@@ -138,20 +153,6 @@ const memoryCards: ICard[] = shuffleArray([
     }
     setIsTimeRunning(false);
   };
-
-  const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
-    1: { hexcode: '#FF0000', name: 'Röd' },
-    2: { hexcode: '#FF1493', name: 'Rosa' },
-    3: { hexcode: '#9932CC', name: 'Lila' },
-    4: { hexcode: '#00BFFF', name: 'Blå' },
-    5: { hexcode: '#228B22', name: 'Grön' },
-    6: { hexcode: '#FFFF00', name: 'Gul' },
-    7: { hexcode: '#FFA500', name: 'Orange' },
-    8: { hexcode: '#555555', name: 'Mörkgrå' },
-  };
-  
-export const GameBoard = () => {
-  const [cards, setCards] = useState<ICard[]>(shuffleArray(memoryCards));
 
   // GAME OVER
   const [gameOver, setGameOver] = useState(false);
