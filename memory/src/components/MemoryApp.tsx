@@ -40,14 +40,43 @@ export const MemoryApp = () => {
     const handleFlip = (id: number) => {
         // const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
         // if (flipCard.length >= 2) return; // blockera fler än 2
-        setCards(currentCards =>
-            currentCards.map(card =>
+        setCards(currentCards => {
+            const updatedCards = currentCards.map(card =>
                 card.id === id
                     ? { ...card, isFlipped: !card.isFlipped, bgColor: !card.isFlipped ? colorByPairId[card.pairId].hexcode : "white",}
                     : card
-            )
-        )
+            );
+        
+            checkForMatch(updatedCards);
+            return updatedCards;
+        })
     }
+
+    const checkForMatch = (cards: ICard[]) => {
+        const flippedCards = cards.filter(card => card.isFlipped && !card.isMatched);
+
+        if (flippedCards.length === 2) {
+            const [first, second] = flippedCards;
+
+            if (first.pairId === second.pairId) {
+                handleMatch(first.pairId)
+            } else {
+                setTimeout(() => {
+                    setCards(currentCards => currentCards.map(card => card.id === first.id || card.id === second.id ? {...card, isFlipped: false, bgColor: "white"} : card ))
+                }, 850)
+            }
+        }
+    };
+
+    const handleMatch = (pairId: number) => {
+            setCards(currentCard =>
+                currentCard.map(card =>
+                    card.pairId === pairId
+                    ? { ...card, isMatched: true}
+                    : card
+                )
+            );
+        }
 
     //Lägg in i handleFlip ? Om lägger variabel inuti handleFlip lokal variabel?
     // const match = () => {
