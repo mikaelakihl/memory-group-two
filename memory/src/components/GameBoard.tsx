@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import type { ICard } from '../models/ICard';
-import './GameBoard.css';
-import { Card } from './Card';
-import { shuffleArray } from '../utils/shuffleArray';
+import { useRef, useState } from "react";
+import type { ICard } from "../models/ICard";
+import "./GameBoard.css";
+import { Card } from "./Card";
+import { shuffleArray } from "../utils/shuffleArray";
 
 const memoryCards: ICard[] = shuffleArray([
   {
@@ -118,18 +118,38 @@ const memoryCards: ICard[] = shuffleArray([
     isMatched: false,
   },
 ]);
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isTimeRunning, setIsTimeRunning] = useState(false);
 
-// export const [matchingPair, setMatchingPair] = useState(false);
-const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
-  1: { hexcode: '#FF0000', name: 'Röd' },
-  2: { hexcode: '#FF1493', name: 'Rosa' },
-  3: { hexcode: '#9932CC', name: 'Lila' },
-  4: { hexcode: '#00BFFF', name: 'Blå' },
-  5: { hexcode: '#228B22', name: 'Grön' },
-  6: { hexcode: '#FFFF00', name: 'Gul' },
-  7: { hexcode: '#FFA500', name: 'Orange' },
-  8: { hexcode: '#555555', name: 'Mörkgrå' },
-};
+  const startTimer = () => {
+    if (!isTimeRunning) {
+      setIsTimeRunning(true);
+      timerRef.current = setInterval(() => {
+        setTimeElapsed(prev => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    setIsTimeRunning(false);
+  };
+
+  const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+    1: { hexcode: '#FF0000', name: 'Röd' },
+    2: { hexcode: '#FF1493', name: 'Rosa' },
+    3: { hexcode: '#9932CC', name: 'Lila' },
+    4: { hexcode: '#00BFFF', name: 'Blå' },
+    5: { hexcode: '#228B22', name: 'Grön' },
+    6: { hexcode: '#FFFF00', name: 'Gul' },
+    7: { hexcode: '#FFA500', name: 'Orange' },
+    8: { hexcode: '#555555', name: 'Mörkgrå' },
+  };
+  
 export const GameBoard = () => {
   const [cards, setCards] = useState<ICard[]>(shuffleArray(memoryCards));
 
@@ -139,11 +159,13 @@ export const GameBoard = () => {
   const checkGameOver = (cardsToCheck: ICard[]) => {
     const allMatched = cardsToCheck.every((card) => card.isMatched); // Kolla om alla kort är matchade
 
-    if (allMatched) {
-      setGameOver(true); // Om alla kort är matchade, sätt gameOver till true
+
+		if (allMatched) {
+			setGameOver(true); // Om alla kort är matchade, sätt gameOver till true
+      stopTimer();
     }
-    console.log(gameOver);
-  };
+		console.log(gameOver);
+	};
 
   // RESTART GAME
   const restartGame = () => {
@@ -153,25 +175,27 @@ export const GameBoard = () => {
       isMatched: false,
       bgColor: 'white',
     }));
+    
+		const shuffledCards = shuffleArray(resetCards); // ⬅ ta emot resultatet
+		setCards(shuffledCards);
+		setGameOver(false);
+    stopTimer()
+    setTimeElapsed(0)
+	};
 
-    const shuffledCards = shuffleArray(resetCards); // ⬅ ta emot resultatet
-    setCards(shuffledCards);
-    setGameOver(false);
-  };
+	const handleFlip = (id: number) => {
+    if (!isTimeRunning) startTimer();
 
-  const handleFlip = (id: number) => {
-    setCards((currentCards) => {
-      const updatedCards = currentCards.map((card) =>
-        card.id === id
-          ? {
-              ...card,
-              isFlipped: !card.isFlipped,
-              bgColor: !card.isFlipped
-                ? colorByPairId[card.pairId].hexcode
-                : 'white',
-            }
-          : card
-      );
+		setCards((currentCards) => {
+			const updatedCards = currentCards.map((card) =>
+				card.id === id
+					? {
+							...card,
+							isFlipped: !card.isFlipped,
+							bgColor: !card.isFlipped ? colorByPairId[card.pairId].hexcode : "white",
+					  }
+					: card
+			);
 
       checkForMatch(updatedCards);
       return updatedCards;
@@ -216,6 +240,7 @@ export const GameBoard = () => {
 
 	return (
 		<>
+      <div>Time:{ timeElapsed}</div>
     <h1>MEMORY</h1>
 			<div className="gameBoard">
 				{cards.map((c) => (
