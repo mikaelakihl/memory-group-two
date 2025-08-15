@@ -65,8 +65,9 @@ export const GameBoard = () => {
 
 	// RESTART GAME
 	const restartGame = () => {
-		// Shuffle funktion här
-		// Set all cards too isFlipped: false, isMatched: false
+		// Shuffle funktion HÄR
+		// SET CARDS TO
+    // isFlipped: false, isMatched: false
 		console.log("New game");
 	};
 
