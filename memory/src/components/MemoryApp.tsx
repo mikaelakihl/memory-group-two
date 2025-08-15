@@ -21,17 +21,10 @@ export const MemoryApp = () => {
         {id: 15, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
         {id: 16, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
     ]);
+
+    // export const [matchingPair, setMatchingPair] = useState(false);
     
-    // const colorByPairId: {[key: number]: string} = {
-    //     1: "#FF0000", 
-    //     2: "#FF1493", 
-    //     3: "#9932CC", 
-    //     4: "#00BFFF", 
-    //     5: "#228B22", 
-    //     6: "#FFFF00", 
-    //     7: "#FFA500", 
-    //     8: "#40E0D0", 
-    // };
+
     const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
         1: { hexcode: "#FF0000", name: "Röd" },
         2: { hexcode: "#FF1493", name: "Rosa" },
@@ -45,6 +38,8 @@ export const MemoryApp = () => {
 
 
     const handleFlip = (id: number) => {
+        // const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
+        // if (flipCard.length >= 2) return; // blockera fler än 2
         setCards(currentCards =>
             currentCards.map(card =>
                 card.id === id
@@ -53,6 +48,19 @@ export const MemoryApp = () => {
             )
         )
     }
+
+    //Lägg in i handleFlip ? Om lägger variabel inuti handleFlip lokal variabel?
+    // const match = () => {
+    //     if({c.pairId === c.pairId}) {
+    //         setMatchingPair(c.isMatched(true)); //Om den är true - matchingPair =true 
+    //     }
+    // }
+    // OBS if isMatched && TVÅ cards isFlipped "lås" & kolla om matchedPair. 
+    //Annars return. if isMatched ??? Försvinna? Låsa(stäng av funktion för att kunna flippa)? 
+    //
+
+    // if alla pair är paired - visa knapp? popup? spela igen. 
+    // funktion för att shuffla knapparnas ordning. 
 
     return (
         <>
@@ -66,7 +74,7 @@ export const MemoryApp = () => {
                     aria-label={c.isFlipped ? colorByPairId[c.pairId].name : `Kort ${c.id}`}
                 >
                     {/* Ta bort/Kommentera ut nedanstående rad för att ta bort texten på korten:  */}
-                    {c.isFlipped ? "": `Kort ${c.id}`} 
+                    {/* {c.isFlipped ? "": `Kort ${c.id}`}  */}
                 </button>
             ))}
         </div>
