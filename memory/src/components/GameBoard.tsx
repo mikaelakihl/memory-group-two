@@ -214,23 +214,27 @@ export const GameBoard = () => {
     });
   };
 
-  return (
-    <>
-      <div className="gameBoard">
-        {cards.map((c) => (
-          <Card
-            key={c.id}
-            card={c}
-            colorName={colorByPairId[c.pairId].name}
-            onFlip={handleFlip}
-          />
-        ))}
-      </div>
-      {gameOver && (
-        <button onClick={restartGame} className="gameOver">
-          Spelet är över! Spela igen?
-        </button>
-      )}
-    </>
-  );
+	return (
+		<>
+    <h1>MEMORY</h1>
+			<div className="gameBoard">
+				{cards.map((c) => (
+					<Card
+						key={c.id}
+						card={c}
+						colorName={colorByPairId[c.pairId].name}
+						onFlip={handleFlip}
+					/>
+				))}
+			</div>
+      {gameOver && <h2>Grattis! Du klarade det!</h2>}
+			{gameOver && (
+				<button onClick={restartGame} className="game-over-btn">
+					Spela igen?
+				</button>
+			)}
+		</>
+	);
+
+        
 };
