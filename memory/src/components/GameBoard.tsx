@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ICard } from "../models/ICard";
 import "./GameBoard.css";
 import { Card } from "./Card";
@@ -122,6 +122,27 @@ export const GameBoard = () => {
 		])
 	);
 
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [isTimeRunning, setIsTimeRunning] = useState(false);
+
+  const startTimer = () => {
+    if (!isTimeRunning) {
+      setIsTimeRunning(true);
+      timerRef.current = setInterval(() => {
+        setTimeElapsed(prev => prev + 1);
+      }, 1000);
+    }
+  };
+
+  const stopTimer = () => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+    setIsTimeRunning(false);
+  };
+
 	// export const [matchingPair, setMatchingPair] = useState(false);
   const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
     1: { hexcode: '#FF0000', name: 'Röd' },
@@ -142,7 +163,8 @@ export const GameBoard = () => {
 
 		if (allMatched) {
 			setGameOver(true); // Om alla kort är matchade, sätt gameOver till true
-		}
+      stopTimer();
+    }
 		console.log(gameOver);
 	};
 
@@ -158,11 +180,13 @@ export const GameBoard = () => {
 		const shuffledCards = shuffleArray(resetCards); // ⬅ ta emot resultatet
 		setCards(shuffledCards);
 		setGameOver(false);
+    stopTimer()
+    setTimeElapsed(0)
 	};
 
 	const handleFlip = (id: number) => {
-		// const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
-		// if (flipCard.length >= 2) return; // blockera fler än 2
+    if (!isTimeRunning) startTimer();
+
 		setCards((currentCards) => {
 			const updatedCards = currentCards.map((card) =>
 				card.id === id
@@ -215,6 +239,7 @@ export const GameBoard = () => {
 
 	return (
 		<>
+      <div>Time:{ timeElapsed}</div>
 			<div className="gameBoard">
 				{cards.map((c) => (
 					<Card
