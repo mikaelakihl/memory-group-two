@@ -215,6 +215,7 @@ export const GameBoard = () => {
 
 	return (
 		<>
+    <h1>MEMORY</h1>
 			<div className="gameBoard">
 				{cards.map((c) => (
 					<Card
@@ -225,9 +226,10 @@ export const GameBoard = () => {
 					/>
 				))}
 			</div>
+      {gameOver && <h2>Grattis! Du klarade det!</h2>}
 			{gameOver && (
-				<button onClick={restartGame} className="gameOver">
-					Spelet är över! Spela igen?
+				<button onClick={restartGame} className="game-over-btn">
+					Spela igen?
 				</button>
 			)}
 		</>
