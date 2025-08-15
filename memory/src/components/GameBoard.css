@@ -24,3 +24,14 @@ body {
   min-height: 6rem;
   cursor: pointer;
 }
+
+.game-over-btn {
+  background-color: #ffffff;
+  color: #333;
+  border: solid 2px #000000;
+  padding: 10px 20px;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
