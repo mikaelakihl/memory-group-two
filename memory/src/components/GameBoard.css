@@ -21,4 +21,5 @@ body {
   flex: 1 1 calc(25% - 8px);
   aspect-ratio: 1 / 1;
   min-height: 6rem;
+  cursor: pointer;
 }

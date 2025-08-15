@@ -132,7 +132,7 @@ export const GameBoard = () => {
     5: { hexcode: '#228B22', name: 'Grön' },
     6: { hexcode: '#FFFF00', name: 'Gul' },
     7: { hexcode: '#FFA500', name: 'Orange' },
-    8: { hexcode: '#40E0D0', name: 'Turkos' },
+    8: { hexcode: '#555555', name: 'Mörkgrå' },
   };
 
       const handleFlip = (id: number) => {
