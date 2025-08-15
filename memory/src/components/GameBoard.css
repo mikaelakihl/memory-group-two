@@ -12,15 +12,13 @@ body {
 }
 
 .gameBoard {
-  display: flex;
-  flex-wrap: wrap;
-  width: 70vw;
-  gap: 10px;
-  margin: 16px auto;
- 
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
 }
 
 .card { /*Responsivt i förhållande till gameboards storlek*/
-  flex: 1 1 calc(25% - 8px); 
-  aspect-ratio: 1 / 1; 
+  flex: 1 1 calc(25% - 8px);
+  aspect-ratio: 1 / 1;
+  min-height: 6rem;
 }
