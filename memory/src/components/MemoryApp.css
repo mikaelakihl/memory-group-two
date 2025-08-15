@@ -1,0 +1,26 @@
+#root {
+  display: flex;
+  justify-content: center;  
+  align-items: center;      
+  min-height: 100vh;        
+  background-color: rgb(242, 235, 224);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.gameBoard {
+  display: flex;
+  flex-wrap: wrap;
+  width: 70vw;
+  gap: 10px;
+  margin: 16px auto;
+ 
+}
+
+.card { /*Responsivt i förhållande till gameboards storlek*/
+  flex: 1 1 calc(25% - 8px); 
+  aspect-ratio: 1 / 1; 
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { ICard } from "../models/ICard";
+import "./MemoryApp.css";
 
 export const MemoryApp = () => {
     const [cards, setCards] = useState<ICard[]>([
@@ -21,34 +22,59 @@ export const MemoryApp = () => {
         {id: 16, pairId: 8, bgColor: "white", isFlipped: false, isMatched: false},
     ]);
 
-    const [flipped, setFlipped] = useState([]); 
-    const [matched, setMatched] = useState([]); 
+    // export const [matchingPair, setMatchingPair] = useState(false);
+    
+
+    const colorByPairId: { [key: number]: { hexcode: string; name: string } } = {
+        1: { hexcode: "#FF0000", name: "Röd" },
+        2: { hexcode: "#FF1493", name: "Rosa" },
+        3: { hexcode: "#9932CC", name: "Lila" },
+        4: { hexcode: "#00BFFF", name: "Blå" },
+        5: { hexcode: "#228B22", name: "Grön" },
+        6: { hexcode: "#FFFF00", name: "Gul" },
+        7: { hexcode: "#FFA500", name: "Orange" },
+        8: { hexcode: "#40E0D0", name: "Turkos" },
+    };
+
 
     const handleFlip = (id: number) => {
+        // const flipCard = cards.filter(c => c.isFlipped && !c.isMatched);
+        // if (flipCard.length >= 2) return; // blockera fler än 2
         setCards(currentCards =>
             currentCards.map(card =>
                 card.id === id
-                    ? { ...card, isFlipped: !card.isFlipped }
+                    ? { ...card, isFlipped: !card.isFlipped, bgColor: !card.isFlipped ? colorByPairId[card.pairId].hexcode : "white",}
                     : card
             )
         )
     }
 
+    //Lägg in i handleFlip ? Om lägger variabel inuti handleFlip lokal variabel?
+    // const match = () => {
+    //     if({c.pairId === c.pairId}) {
+    //         setMatchingPair(c.isMatched(true)); //Om den är true - matchingPair =true 
+    //     }
+    // }
+    // OBS if isMatched && TVÅ cards isFlipped "lås" & kolla om matchedPair. 
+    //Annars return. if isMatched ??? Försvinna? Låsa(stäng av funktion för att kunna flippa)? 
+    //
+
+    // if alla pair är paired - visa knapp? popup? spela igen. 
+    // funktion för att shuffla knapparnas ordning. 
+
     return (
         <>
-         <div>
+         <div className="gameBoard">
             {cards.map((c) => (
                 <button
                     key={c.id}
+                    className={`card ${c.isMatched ? "matched" : ""}`}
                     onClick={() => handleFlip(c.id)}
-                    style={{
-                        backgroundColor: c.isFlipped ? c.bgColor : "gray",
-                        width: "80px",
-                        height: "80px",
-                        margin: "5px"
-                    }}
+                    style={{backgroundColor: c.isFlipped ? c.bgColor : "white",}}
+                    aria-label={c.isFlipped ? colorByPairId[c.pairId].name : `Kort ${c.id}`}
                 >
-                    {c.isFlipped ? "": `Kort ${c.id}`}
+                    {/* Ta bort/Kommentera ut nedanstående rad för att ta bort texten på korten:  */}
+                    {/* {c.isFlipped ? "": `Kort ${c.id}`}  */}
                 </button>
             ))}
         </div>
